@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faros.FrontEnd", "Faros.FrontEnd\Faros.FrontEnd.csproj", "{1E2F9FEA-A720-40DA-A77A-0EC1CBA61BEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{25A56D80-BC97-4044-B912-832A435BFBD7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Proxy", "..\..\core_sample\Core.Proxy\Core.Proxy.csproj", "{5635EA4B-A7A5-441F-A6AC-555210FF48A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common", "..\..\core_sample\Core.Common\Core.Common.csproj", "{9A4E0232-929E-4F0B-AA8A-49A100A1D9E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Container", "..\..\core_sample\Core.Container\Core.Container.csproj", "{92416594-5251-4891-BD9F-9ED87953AFAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faros.Common", "..\..\Faros\Faros.Common\Faros.Common.csproj", "{5A5DF8D0-5BAE-428A-A78E-62D34EFB790F}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "source", "..\source\", "{3943ABE4-094D-4EB5-BA5D-5670F2CC85E4}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50588"
+		Debug.AspNetCompiler.PhysicalPath = "..\source\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50588\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50588"
+		Release.AspNetCompiler.PhysicalPath = "..\source\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50588\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50588"
+		SlnRelativePath = "..\source\"
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faros.QuickTests", "Faros.QuickTests\Faros.QuickTests.csproj", "{ADD896CD-5709-49EA-AF1D-BAFA17350639}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{BCD43A48-0F4B-4967-90AC-C1AB39577486}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E2F9FEA-A720-40DA-A77A-0EC1CBA61BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2F9FEA-A720-40DA-A77A-0EC1CBA61BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2F9FEA-A720-40DA-A77A-0EC1CBA61BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E2F9FEA-A720-40DA-A77A-0EC1CBA61BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5635EA4B-A7A5-441F-A6AC-555210FF48A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5635EA4B-A7A5-441F-A6AC-555210FF48A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5635EA4B-A7A5-441F-A6AC-555210FF48A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5635EA4B-A7A5-441F-A6AC-555210FF48A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4E0232-929E-4F0B-AA8A-49A100A1D9E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4E0232-929E-4F0B-AA8A-49A100A1D9E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4E0232-929E-4F0B-AA8A-49A100A1D9E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4E0232-929E-4F0B-AA8A-49A100A1D9E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92416594-5251-4891-BD9F-9ED87953AFAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92416594-5251-4891-BD9F-9ED87953AFAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92416594-5251-4891-BD9F-9ED87953AFAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92416594-5251-4891-BD9F-9ED87953AFAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5DF8D0-5BAE-428A-A78E-62D34EFB790F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5DF8D0-5BAE-428A-A78E-62D34EFB790F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5DF8D0-5BAE-428A-A78E-62D34EFB790F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5DF8D0-5BAE-428A-A78E-62D34EFB790F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3943ABE4-094D-4EB5-BA5D-5670F2CC85E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3943ABE4-094D-4EB5-BA5D-5670F2CC85E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3943ABE4-094D-4EB5-BA5D-5670F2CC85E4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{3943ABE4-094D-4EB5-BA5D-5670F2CC85E4}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADD896CD-5709-49EA-AF1D-BAFA17350639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADD896CD-5709-49EA-AF1D-BAFA17350639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADD896CD-5709-49EA-AF1D-BAFA17350639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADD896CD-5709-49EA-AF1D-BAFA17350639}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5635EA4B-A7A5-441F-A6AC-555210FF48A7} = {25A56D80-BC97-4044-B912-832A435BFBD7}
+		{9A4E0232-929E-4F0B-AA8A-49A100A1D9E5} = {25A56D80-BC97-4044-B912-832A435BFBD7}
+		{92416594-5251-4891-BD9F-9ED87953AFAF} = {25A56D80-BC97-4044-B912-832A435BFBD7}
+		{ADD896CD-5709-49EA-AF1D-BAFA17350639} = {BCD43A48-0F4B-4967-90AC-C1AB39577486}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1DDFF2B4-AA18-4CB6-84C3-8488D281C508}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,174 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
+
+namespace Core.Common
+{
+    public class ZipUtils
+    {
+
+        public static byte[] ZipFiles(Dictionary<string, string> mapMonthToData)
+        {
+            using (var ms = new MemoryStream())
+            {
+                using (var zipArchive = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                {
+                    foreach (var attachment in mapMonthToData)
+                    {
+                        var entry = zipArchive.CreateEntry(attachment.Key);
+                        
+                        using (var entryStream = entry.Open())
+                        {
+                            using (var streamWriter = new StreamWriter(entryStream, Encoding.UTF8))
+                            {
+                                streamWriter.Write(attachment.Value);
+                            }
+                        }
+                    }
+                }
+
+                ms.Position = 0;
+                return ms.ToArray();
+            }
+        }
+
+        public static byte[] Zip(string textToZip, string fileName = null)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                fileName = "log.txt";
+
+            return ZipFiles(new Dictionary<string, string>
+            {
+                { fileName, textToZip }
+            });
+        }
+
+        public static byte[] Zip(string[] FilesToZip)
+        {
+            byte[] ret;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var zipArchive = new ZipArchive(memoryStream, ZipArchiveMode.Create, false))
+                {
+                    foreach (var file in FilesToZip)
+                    {
+                        var fileInfo = new FileInfo(file);
+                        var fileInArchive = zipArchive.CreateEntryFromFile(fileInfo.FullName, fileInfo.Name);
+                    }
+                }
+
+                ret = memoryStream.ToArray();
+            }
+
+            return ret;
+        }
+
+        public static string Unzip(byte[] zippedBuffer)
+        {
+            using (var zippedStream = new MemoryStream(zippedBuffer))
+            {
+                using (var archive = new ZipArchive(zippedStream))
+                {
+
+                    ZipArchiveEntry entry = null;
+
+                    if (archive.Entries.Count > 0)
+                        entry = archive.Entries[0];
+
+
+                    if (entry != null)
+                    {
+                        using (var unzippedEntryStream = entry.Open())
+                        {
+                            using (var ms = new MemoryStream())
+                            {
+                                unzippedEntryStream.CopyTo(ms);
+                                var unzippedArray = ms.ToArray();
+
+                                return Encoding.UTF8.GetString(unzippedArray);
+                            }
+                        }
+                    }
+
+                    return null;
+                }
+            }
+        }
+
+        public static string Base64Encode(byte[] data)
+        {
+            try
+            {
+                string encodedData = Convert.ToBase64String(data);
+                return encodedData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Base64Encode()" + ex.ToString());
+            }
+        }
+
+        public static byte[] Base64Decode(string data)
+        {
+            try
+            {
+                byte[] todecode_byte = Convert.FromBase64String(data);
+                return todecode_byte;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Base64Decode()" + ex.ToString());
+            }
+        }
+
+
+        public static void AddFilesToZip(string zipPath, string[] files)
+        {
+            if (files == null || files.Length == 0)
+            {
+                return;
+            }
+
+            if (!File.Exists(zipPath)) return;
+
+
+            using (var zipArchive = ZipFile.Open(zipPath, ZipArchiveMode.Update))
+            {
+                foreach (var file in files)
+                {
+                    var fileInfo = new FileInfo(file);
+                    zipArchive.CreateEntryFromFile(fileInfo.FullName, fileInfo.Name);
+                }
+            }
+        }
+
+        public static void AddFilesToZip(string zipPath, Dictionary<string, string> mapMonthToData)
+        {
+            if (mapMonthToData == null || mapMonthToData.Count == 0)
+                return;
+
+            if (!File.Exists(zipPath)) return;
+
+            using (var zipArchive = ZipFile.Open(zipPath, ZipArchiveMode.Update))
+            {
+                foreach (var file in mapMonthToData)
+                {
+                    var entry = zipArchive.CreateEntry(file.Key);
+
+                    using (var entryStream = entry.Open())
+                    {
+                        using (var streamWriter = new StreamWriter(entryStream, Encoding.UTF8))
+                        {
+                            streamWriter.Write(file.Value);
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+}

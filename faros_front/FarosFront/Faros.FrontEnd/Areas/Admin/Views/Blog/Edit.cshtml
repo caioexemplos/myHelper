@@ -1,0 +1,113 @@
+﻿@model Faros.FrontEnd.Models.PostDTO
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<div class="col-md-6 col-sm-6">
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="example-input-small">Foto:</label>
+
+            <label for="example-input-small">Foto:</label>
+            @if (Model.FotoPost != null)
+            {
+                <img src="@Url.Content(Model.FotoPost.Path)" class="featurette-image img-fluid mx-auto">
+            }
+            else
+            {
+                <!--Debugger-->
+                <img src="Admin/AnimalEdit/VerImagemNovo" class="featurette-image img-fluid mx-auto">
+                <!--Publish-->
+                <!--<img src="FarosFront/AnimalEdit/VerImagemNovo" class="img-fluid">-->
+            }
+           
+        </div>
+        <div class="col-sm-8" style="margin-top:auto;width: 100px; height: 100px;">
+            <!--USAR CONSTANTES-->
+            <form method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Blog" asp-action="UploadPhotoEdit" asp-route-animalId="@Model.Id">
+                <input type="file" name="file" />
+                <input type="submit" class="btn-xs float-right" />
+            </form>
+
+        </div>
+
+    </div>
+
+    <form asp-action="Update" asp-controller="Blog" method="post" asp-route-id="@Model.Id">
+
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input type="text" asp-for="Titulo" class="form-control input-sm" placeholder="Titulo" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <select asp-for="Usuario.Id" class="form-control">
+                    <option value="0">-- Selecione o Usuário --</option>
+                    @foreach (var item in ViewBag.Usuarios)
+                    {
+                        <option value="@item.Id">@item.Nome</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="CategoriaBlogPost" class="control-label"></label>
+                <select asp-for="CategoriaBlogPost.Id" class="form-control">
+                    <option value="0">-- Selecione a Categoria --</option>
+                    @foreach (var item in ViewBag.CategoriasPost)
+                    {
+                        <option value="@item.Id">@item.Nome</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label asp-for="Data" class="control-label"></label>
+                    <input asp-for="Data" type="date" class="form-control datepicker">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Resumo" class="control-label"></label>
+                <textarea class="form-control" asp-for="Resumo"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Texto" class="control-label"></label>
+                <textarea id="editor1" asp-for="Texto" rows="600" cols="200"></textarea>
+                <script>
+                    CKEDITOR.replace('editor1');
+                </script>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="FotoPost.Path" class="control-label"></label>
+                <input type="text" asp-for="FotoPost.Path" class="form-control input-sm" placeholder="Path" />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Editar Post</button>
+        </div>
+    </form>
+
+</div>

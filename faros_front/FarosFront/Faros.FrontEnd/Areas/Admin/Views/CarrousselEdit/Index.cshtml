@@ -1,0 +1,102 @@
+﻿@model List<Faros.Common.Arquivo>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <h1>Upload Your Images</h1>
+
+    <!--Prod URL-->
+    <!--<form action="FarosFront/CarrousselEdit/UploadImagem" enctype="multipart/form-data" method="post" mu>-->
+    <!--Dev URL-->
+    <form asp-controller="CarrousselEdit" asp-action="UploadImagem" method="post" enctype="multipart/form-data"  mu>
+            <input type="file" name="arquivos" multiple />
+            <br />
+            <br />
+            <button id="EnviarArquivos" type="submit" class="btn btn-primary">Enviar Arquivo</button>
+        </form>
+        <br />
+
+
+        <div class="album py-5">
+            <div class="container">
+                <h1 class="page-title">Álbum</h1>
+                <br />
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        @foreach (var item in Model)
+                        {
+
+                            <div class="col-md-4" id="myArea_@item.Id" item-id="@item.Id">
+                                <div class="card mb-4 shadow-sm">
+
+                                    <!--Prod URL-->
+                                    <!--<img class="card-img-top" src="FarosFront/CarrousselEdit/VerImagem/?nome=@item.Nome" alt="Card image cap">-->
+                                    <!--Dev URL-->
+                                    <img class="card-img-top" src="Admin/CarrousselEdit/VerImagemNovo/?nome=@item.Nome" alt="Card image cap">
+
+                                    <div class="card-body">
+                                        <p class="card-text">Arquivo: @item.Nome</p>
+                                        <br />
+                                        <p class="card-text">Posição: @item.Posicao</p>
+                                        <br />
+                                        <p class="card-text">Tamanho: @item.Tamanho</p>
+                                        <br />
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                                                <button id="edit_@item.Nome" type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                                            </div>
+                                            <small class="text-muted">9 mins</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        }
+
+                    }
+
+
+
+                    <!--<nav aria-label="Page navigation example align-content-center">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>-->
+
+                </div>
+            </div>
+
+        </div>
+</div>
+
+@*@section Scripts
+    {
+        <script type="text/javascript">
+            function clickEnvio(btn) {
+                var linhaDoItem = $(btn).parents('[item-id]');
+                var itemId = $(linhaDoItem).attr('item-id');
+                var number = document.getElementById(itemId).value;
+
+                alert(number);
+            }
+
+
+
+        </script>
+
+
+
+    }*@

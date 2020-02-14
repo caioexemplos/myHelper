@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ApnCore_Crud.Models.Funcionario>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<p>
+    <a asp-action="Create">Criar Novo Funcionario</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FuncionarioId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuncionarioId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.FuncionarioId }) |
+                @Html.ActionLink("Detalhes", "Details", new { id=item.FuncionarioId }) |
+                @Html.ActionLink("Deletar", "Delete", new { id=item.FuncionarioId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

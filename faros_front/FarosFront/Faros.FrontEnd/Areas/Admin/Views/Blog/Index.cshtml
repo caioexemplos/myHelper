@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Faros.FrontEnd.Models.PostDTO>
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/css/samples.css" />
+<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+
+<div class="container">
+
+    <h2>Animal Cadastro</h2>
+    <hr />
+
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="RESA do Animal" aria-label="Search">
+        <button class="btn btn-outline-success my-5 my-sm-0" type="submit">Procurar</button>
+    </form>
+    <hr />
+
+    @{
+        int contador = 0;
+    }
+
+
+    <a class="row" asp-area="Admin" asp-controller="Blog" asp-action="Create"><i class="material-icons">add_circle_outline</i>&nbsp;Adicionar Post</a><br /><br />
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead style="background-color:orangered">
+                <tr>
+                    <th scope="col">Data Postagem</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Usuário</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Detalhes</th>
+                    <th scope="col">Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null)
+                {
+                    @foreach (var post in Model)
+                    {
+
+                        <tr scope="row">
+                            <td>@post.Data.ToShortDateString()</td>
+                            <td>@post.Titulo</td>
+                            <td>@post.Usuario.Nome</td>
+                            <td>@post.CategoriaBlogPost.Nome</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@post.Id" id="btn-edit" class="btn">
+                                    <i class="material-icons md-18">create</i>
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@post.Id" id="btn-details" class="btn">
+                                    <i class="material-icons md-18">assignment</i>
+                                </a>
+                            </td>
+                            <td>
+
+                                <a asp-action="Delete" asp-route-id="@post.Id" data-codigo="@post.Id" id="btn-delete" class="btn">
+                                    <i class="material-icons md-18">cancel</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Navegação de página exemplo">
+        <ul class="pagination">
+
+            @for (int i = 0; i < ViewBag.TamanhoTotal; i++)
+            {
+                contador = i + 1;
+                <li class="page-item"><a asp-controller="AnimalEdit" asp-action="Index" asp-route-pagina="@i" class="page-link">@contador</a></li>
+            }
+
+
+        </ul>
+    </nav>
+
+
+    <hr>
+
+
+</div>
+

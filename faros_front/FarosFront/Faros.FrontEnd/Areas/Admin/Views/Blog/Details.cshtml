@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+
+@model Faros.FrontEnd.Models.PostDTO
+
+@{
+    ViewData["Title"] = "BlogPost";
+}
+
+<center><h2>@Model.Titulo</h2></center>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <hr />
+            <img src="@Url.Content(Model.FotoPost.Path)" class="img-fluid" height="500" width="1500" />
+            <hr />
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+
+                @Html.Raw(Model.Texto)
+            </div>
+        </div>
+    </div>
+</article>
+<hr>

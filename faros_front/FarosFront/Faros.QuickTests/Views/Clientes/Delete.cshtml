@@ -1,0 +1,27 @@
+﻿@model Faros.QuickTests.Models.Cliente
+
+<form id="formDelete">
+    <p> Deseja realmente excluir o cliente <strong>@Html.DisplayFor(model => model.Nome)</strong>?</p>
+
+    @Html.HiddenFor(model => model.Codigo)
+</form>
+
+<hr />
+
+<div>
+    <button class="ui-state-default ui-corner-all" id="btnDelete">Excluir</button>
+    <button class="ui-state-default ui-corner-all" id="btnClose">Cancelar</button>
+</div>
+
+<script>
+    $("#btnDelete").click(function () {
+        $.post("/clientes/delete", $("#formDelete").serialize()
+        ).done(function () {
+            $("#divClientes").load("/clientes/list");
+        });
+        $("#modal").dialog("close");
+    });
+    $("#btnClose").click(function () {
+        $("#modal").dialog("close");
+    });
+</script>

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Faros.FrontEnd.Models.AnimalDTO>
+@{
+    ViewData["Title"] = "AlbumHome";
+}
+
+
+
+<main role="main">
+
+    <div class="container">
+        @{
+            const int TAMANHO_PAGINA = 4;
+
+            int paginas = (int)Math.Ceiling((double)Model.Count() / TAMANHO_PAGINA);
+
+            int contador = 0;
+        }
+
+
+        <h2>Você está na página @ViewBag.PaginaAtual</h2>
+
+        <div class="row" style="margin: 15px;">
+            @foreach (var animal in Model)
+            {
+
+                <div style="margin: 15px;">
+                    <img class="featurette-image img-fluid mx-auto rounded" src="@Url.Content(animal.FotoArquivo.Path)" alt="Erro ao carregar o animal @animal.Nome" />
+
+                    <div class="container">
+                        <div class="row" style="margin: 15px;">
+                            <div class="col-sm-8">
+                                <!-- Button -->
+                                <strong>Nome:</strong>@animal.Nome<br />
+                                <strong>Sexo:</strong>@animal.Sexo.Nome<br />
+                            </div>
+                            <div class="col-sm-4">
+                                <a asp-controller="Album" asp-action="ContatoAdotar" asp-route-animalId="@animal.Id" class="btn btn-info" style="margin: 1px;">
+                                    Me Adote!
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <nav aria-label="Navegação de página exemplo">
+            <ul class="pagination">
+
+                @for (int i = 0; i < ViewBag.TamanhoTotal; i++)
+                {
+                    contador = i + 1;
+                <li class="page-item"><a asp-controller="Album" asp-action="AlbumHome" asp-route-pagina="@i" class="page-link">@contador</a></li>
+                }
+                
+
+            </ul>
+        </nav>
+    </div>
+
+</main>
+
+<script>
+    $(document).on("click", '[data-toggle="lightbox"]', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+
+</script>
+
+
+
+

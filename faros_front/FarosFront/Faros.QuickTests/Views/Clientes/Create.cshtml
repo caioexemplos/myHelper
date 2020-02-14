@@ -1,0 +1,55 @@
+﻿@model Faros.QuickTests.Models.Cliente
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form id="formCreate">
+    @Html.ValidationSummary(true)
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Codigo)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Codigo)
+        @Html.ValidationMessageFor(model => model.Codigo)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Nome)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Nome)
+        @Html.ValidationMessageFor(model => model.Nome)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Telefone)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Telefone)
+        @Html.ValidationMessageFor(model => model.Telefone)
+    </div>
+
+</form>
+<hr />
+<div>
+    <button class="ui-state-default ui-corner-all" id="btnSave">Salvar</button>
+    <button class="ui-state-default ui-corner-all" id="btnClose">Cancelar</button>
+</div>
+
+<script>
+    $("#btnSave").click(
+        function () {
+            $.post("Clientes/CreateWithSomething/", $("#formCreate").serialize())
+                .done(
+                    function () {
+                        $("#divClientes").load("/clientes/list");
+                    });
+            $("#modal").dialog("close");
+        });
+
+    $("#btnClose").click(
+        function () {
+            $("#modal").dialog("close");
+        });
+</script>

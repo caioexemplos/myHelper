@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+
+namespace Core.Common.Util
+{
+    public class MailHelper
+    {
+        private String Encode = "ISO-8859-1";
+        private String _from;
+        private String _server;
+        private string _password;
+        private bool Initialized = false;
+        private int _emailPort;
+        private string _emailSSL;
+
+
+        public void Init(string from, string Password, string smtpServerHost, int emailPort, string emailSSL = null)
+        {
+            _from = from;
+            _server = smtpServerHost;
+            _password = Password;
+            if (!String.IsNullOrEmpty(from) && !String.IsNullOrEmpty(smtpServerHost))
+                Initialized = true;
+
+            _emailPort = emailPort;
+            _emailSSL = emailSSL;
+        }
+
+        public void Send(string to, string subject, string message,string aliasClient,string aliasService)
+        {
+            try
+            {
+
+                if (!Initialized)
+                {
+                    return;
+                }
+
+                var fromAddress = new MailAddress(_from, aliasClient);
+                var toAddress = new MailAddress(to, aliasService);
+                var fromPassword = _password;
+                var _subject = subject;
+                var body = message;
+                var smtpClient = new SmtpClient("")
+                {
+                    Host = _server,
+                    Port = _emailPort,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+
+                };
+
+
+                using (var _message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = _subject,
+                    Body = body
+                })
+                {
+                    smtpClient.Send(_message);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+    }
+}
+
+

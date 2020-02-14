@@ -1,0 +1,21 @@
+﻿@model Faros.FrontEnd.Models.PostDTO
+@{
+    ViewData["Title"] = "Delete";
+}
+<form id="formDelete">
+    <p> Deseja realmente excluir o Post <strong>@Html.DisplayFor(model => model.Titulo)</strong>?</p>
+    <hr />
+
+    <div>
+        <button asp-action="DeletePost" asp-route-id="@Model.Id" class="ui-state-default ui-corner-all">Excluir</button>
+        <button asp-action="Index" class="ui-state-default ui-corner-all" id="btnClose">Cancelar</button>
+    </div>
+</form>
+
+<script>
+    $("#btnClose").click(function () {
+        $("#modal").dialog("close");
+    });
+</script>
+<h2>Delete</h2>
+

@@ -1,0 +1,42 @@
+﻿@model List<Faros.FrontEnd.Models.ArquivoDTO>
+
+@{ int fileCount = Model.Count();
+    double numberRows = @Math.Ceiling(fileCount / 4.0);
+}
+
+<div>total photos: @fileCount </div>
+<div>rows: @numberRows</div>
+
+@{int fotoCounter = 1;
+    @for (int i = 1; i <= numberRows; i++)
+    {
+        <div class="row">
+            @for (int fotos = 1; fotos <= fileCount; fotos++)
+            {
+
+                <!--class="column"   onclick="openModal();currentSlide(counter++)"    class="hover-shadow cursor   style="width:50%;  margin-top: 20px;""-->
+                <div class="col-sm-2">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="@Url.Content(Model[fotoCounter - 1].Path)" class="card-img-top">
+                        <div class="card-body">
+                            <div class="row">
+                                <button type="button" onclick="openModal();currentSlide(@(fotoCounter++))" class="btn btn-sm btn-outline-secondary">Ver</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+
+
+        </div>
+    }
+}
+
+
+
+
+

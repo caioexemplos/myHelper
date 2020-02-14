@@ -1,0 +1,126 @@
+﻿@model Faros.FrontEnd.Models.AnimalDTO
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Animal Cadastro</h2>
+
+<hr>
+<div class="wrapper">
+    <div class="container">
+
+
+        <div class="card-box">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="example-input-small">Foto:</label>
+                    <!--Debbuger-->
+                    <img src="Admin/AnimalEdit/VerImagemNovo" class="featurette-image img-fluid mx-auto">
+                    <!--Publish-->
+                    <!--<img src="FarosFront/Admin/AnimalEdit/VerImagemNovo" class="img-fluid">>-->
+                </div>
+            <div class="col-sm-8" style="margin-top:auto;width: 100px; height: 100px;">
+                    <!--USAR CONSTANTES-->
+                    <form method="post" enctype="multipart/form-data" asp-controller="AnimalEdit" asp-action="UploadPhoto">
+                        <input type="file" name="file" />
+                        <input type="submit" class="btn-xs float-right" />
+                    </form>
+
+                </div>
+
+            </div>
+            <form asp-action="Insert" asp-controller="AnimalEdit" method="post">
+                <div class="row">
+
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+
+                                <label asp-for="RESA" class="control-label">RESA</label>
+                                <input type="text" asp-for="RESA" class="form-control input-sm" placeholder="RESA" />
+                                <!--<input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">-->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label asp-for="Nome" class="control-label">Nome</label>
+                                <input type="text" asp-for="Nome" class="form-control input-sm" placeholder="Nome" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label asp-for="Sexo" class="control-label"></label>
+                                <select asp-for="Sexo.Id" class="form-control">
+                                    <option value="0">-- Selecione o Sexo --</option>
+                                    <option value="2">Macho</option>
+                                    <option value="1">Fêmea</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="Especie" class="control-label"></label>
+                            <select asp-for="Especie.Id" class="form-control">
+                                <option value="0">-- Selecione o Sexo --</option>
+                                <option value="1">Cachorro</option>
+                                <option value="2">Gato</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label asp-for="Idade" class="control-label"></label>
+                                <select asp-for="Idade.Id" class="form-control">
+                                    <option value="0">-- Selecione o Sexo --</option>
+                                    <option value="1">Filhote</option>
+                                    <option value="2">Adulto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="example-input-small">Data da Postagem</label>
+                                <input asp-for="Castracao" type="date" class="form-control datepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="example-input-small">Caminho Foto</label>
+                                <input type="text" asp-for="FotoArquivo.Path" class="form-control input-sm" placeholder="Path" readonly />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-horizontal float-right">
+                    <div class="form-group">
+                        <input type="submit" value="Criar" class="btn btn-default" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<hr>

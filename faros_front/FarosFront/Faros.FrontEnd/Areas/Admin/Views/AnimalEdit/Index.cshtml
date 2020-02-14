@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Faros.FrontEnd.Models.AnimalDTO>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h2>Animal Cadastro</h2>
+    <hr/>
+
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="RESA do Animal" aria-label="Search">
+        <button class="btn btn-outline-success my-5 my-sm-0" type="submit">Procurar</button>
+    </form>
+    <hr />
+
+    @{
+        int contador = 0;
+    }
+
+
+    <a class="row" asp-area="Admin" asp-controller="AnimalEdit" asp-action="Create"><i class="material-icons">add_circle_outline</i>&nbsp;Adicionar Animal</a><br /><br />
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead style="background-color:orangered">
+                <tr>
+                    <th scope="col">RESA</th>
+                    <th scope="col">Animal</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Detalhes</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null)
+                {
+                    @foreach (var animal in Model)
+                    {
+
+                        <tr scope="row">
+                            <td>@animal.RESA</td>
+                            <td>@animal.Nome</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@animal.Id" id="btn-edit" class="btn">
+                                    <i class="material-icons md-18">create</i>
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@animal.Id" id="btn-details" class="btn">
+                                    <i class="material-icons md-18">assignment</i>
+                                </a>
+                            </td>
+                            <td>
+
+                                <a asp-action="Delete" asp-route-id="@animal.Id" data-codigo="@animal.Id" id="btn-delete" class="btn">
+                                    <i class="material-icons md-18">cancel</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Navegação de página exemplo">
+        <ul class="pagination">
+
+            @for (int i = 0; i < ViewBag.TamanhoTotal; i++)
+            {
+                contador = i + 1;
+                <li class="page-item"><a asp-controller="AnimalEdit" asp-action="Index" asp-route-pagina="@i" class="page-link">@contador</a></li>
+            }
+
+
+        </ul>
+    </nav>
+
+
+    <hr>
+</div>
+@*<script>
+        $(function () {
+
+            $(".btn-delete").click(function () {
+                var codigo = $(this).attr("data-codigo");
+                $("#modal").load("Admin/AnimalEdit/Delete/" + codigo).attr("title", "Excluir cliente").dialog();
+            });
+
+        });
+    </script>*@
+
+

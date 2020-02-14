@@ -1,0 +1,45 @@
+﻿@model Faros.FrontEnd.Models.UsuarioDTO
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+<h2>CreateUser</h2>
+
+<div class="row">
+    <div class="col-md-2">
+        Foto:
+        <!--Debbuger-->
+        <img src="Admin/AnimalEdit/VerImagemNovo" class="featurette-image img-fluid mx-auto">
+        <!--Publish-->
+        <!--<img src="FarosFront/Admin/AnimalEdit/VerImagemNovo" class="img-fluid">>-->
+
+        <form method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="UserEdit" asp-action="UploadPhoto">
+            <input type="file" name="file" />
+            <input type="submit" class="btn" />
+        </form>
+    </div>
+</div>
+<br /><br />
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="example-input-small">Nome</label>
+            <input type="text" asp-for="Nome" class="form-control input-sm" placeholder="Nome" />
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label for="example-input-small">Login</label>
+            <input type="text" asp-for="Login" class="form-control input-sm" placeholder="Login" />
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label for="example-input-small">Senha</label>
+            <input type="text" asp-for="Senha" class="form-control input-sm" placeholder="Senha" />
+        </div>
+    </div>
+</div>

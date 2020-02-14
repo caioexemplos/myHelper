@@ -1,0 +1,131 @@
+using Core.Common.Constants;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+
+namespace Core.Proxy
+{
+    public class BaseProxy<T>:SecurityProxy
+    {
+        protected string _Uri = null;
+        //protected HttpClient _Client;
+
+        public BaseProxy(string uri)
+        {
+            MontaHttpClient(uri);
+
+            _Uri = string.Format("api/{0}", typeof(T).Name.ToString().Replace("DTO","").ToLower());
+        }
+
+        private void MontaHttpClient(string uri)
+        {
+            _Client.BaseAddress = new Uri(uri);
+
+            _Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            SetAuthenticationHeader();
+        }
+
+        public virtual T Post(T obj)
+        {
+            try
+            {
+
+                var response = _Client.PostAsJsonAsync(string.Format("{0}/", _Uri), obj).Result;
+
+                var entity = response.Content.ReadAsAsync<T>().Result;
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public virtual bool Put(int id, T obj)
+        {
+            // Update a product
+            try
+            {
+                var response = _Client.PutAsJsonAsync(
+                    string.Format("{0}/{1}/?id={2}", _Uri, ActionNames.PUT, id), obj).Result;
+
+                var entity = response.Content.ReadAsAsync<bool>().Result;
+                return entity;
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+        }
+        public virtual void Delete(int id)
+        {
+            // Delete a product
+            try
+            {
+                var response = _Client.DeleteAsync(
+                    string.Format("{0}/{1}/?id={2}", _Uri, ActionNames.DELETE, id)).Result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public virtual T GetById(int id)
+        {
+            try
+            {
+                var response = _Client.GetAsync(string.Format("{0}/{1}/?id={2}", _Uri, ActionNames.GETBYID, id)).Result;
+
+                var entity = response.Content.ReadAsAsync<T>().Result;
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
+        public virtual IEnumerable<T> Get()
+        {
+            // List all products.
+            try
+            {
+                var response = _Client.GetAsync(_Uri).Result;
+                IEnumerable<T> objs = response.Content.ReadAsAsync<IEnumerable<T>>().Result;
+                return objs;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+    }
+
+public class SecurityProxy
+    {
+        protected HttpClient _Client;
+        public SecurityProxy()
+        {
+            //liberar SSL Autoassinado
+            using (new HttpClient())
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+            _Client = new HttpClient();
+        }
+
+        protected void SetAuthenticationHeader()
+        {
+            _Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", UserDetail.User, String.Empty))));
+        }
+    }
+}
+

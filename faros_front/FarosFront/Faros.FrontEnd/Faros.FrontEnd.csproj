@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\UploadTemp\**" />
+    <Content Remove="wwwroot\UploadTemp\**" />
+    <EmbeddedResource Remove="wwwroot\UploadTemp\**" />
+    <None Remove="wwwroot\UploadTemp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\images\album\album_foto_1.jpg" />
+    <Content Remove="wwwroot\images\album\album_foto_2.jpg" />
+    <Content Remove="wwwroot\images\album\album_foto_3.jpg" />
+    <Content Remove="wwwroot\images\album\album_foto_4.jpg" />
+    <Content Remove="wwwroot\images\album\album_foto_8.jpg" />
+    <Content Remove="wwwroot\images\album\album_foto_9.jpg" />
+    <Content Remove="wwwroot\images\banner1.svg" />
+    <Content Remove="wwwroot\images\banner2.svg" />
+    <Content Remove="wwwroot\images\banner3.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Tools" Version="1.1.0-preview4-final" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="popper.js" Version="1.14.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\fonts\FontAwesome\fontawesome-webfont.svg" />
+    <None Include="wwwroot\lib\fonts\fonts_slider\flexslider-icon.svg" />
+    <None Include="wwwroot\lib\fonts\glyphicons\glyphicons-halflings-regular.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core_sample\Core.Common\Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\core_sample\Core.Proxy\Core.Proxy.csproj" />
+    <ProjectReference Include="..\..\..\Faros\Faros.Common\Faros.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Core.Container">
+      <HintPath>..\..\..\core_sample\Core.Container\bin\Debug\netcoreapp2.1\Core.Container.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="wwwroot\images\album\" />
+    <Folder Include="wwwroot\images\blog\" />
+    <Folder Include="wwwroot\images\row-featured-img\" />
+  </ItemGroup>
+
+</Project>

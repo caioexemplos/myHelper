@@ -1,0 +1,137 @@
+using Core.Interface;
+using Core.Repository;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+
+using NHibernate;
+using NHibernate.Cfg;
+
+using System.Net;
+using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
+using Core.Common.Constants;
+
+namespace Core.Service
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BaseController<T> : Controller, IController<T> where T : class, new()
+    {
+        protected BaseNegocio<T> _BaseBO = new BaseNegocio<T>();
+        public BaseController()
+        {
+
+        }
+        public BaseController(BaseNegocio<T> bn)
+        {
+            this._BaseBO = bn;
+        }
+
+        [HttpGet]
+        public virtual IEnumerable<T> Get()
+        {
+            try
+            {
+                var items = _BaseBO.Get();
+
+                if (items == null)
+                {
+                 throw new Exception();
+                }
+                return items;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        [HttpGet]
+        [Route(ActionNames.GETBYID)]
+        public virtual T GetById(int id)
+        {
+            try
+            {
+                T item = _BaseBO.Get(id);
+
+                if (item == null)
+                    throw new Exception();
+
+                return item;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        [HttpPost]
+        public virtual T Post([FromBody]T obj)
+        {
+            try
+            {
+                obj = _BaseBO.Insert(obj);
+
+                if (obj == null)
+                    throw new Exception();
+
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPut]
+        [Route(ActionNames.PUT)]
+        public virtual bool Put(int id, [FromBody] T obj)
+        {
+            try
+            {
+                _BaseBO.Update(obj);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpDelete]
+        [Route(ActionNames.DELETE)]
+        public virtual void Delete(int id)
+        {
+
+            try
+            {
+                T obj = _BaseBO.Get(id);
+
+                if (obj == null)
+                    throw new Exception();
+
+                _BaseBO.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+ public interface IController<T>
+    {
+        IEnumerable<T> Get();
+        T GetById(int id);
+        T Post(T obj);
+        bool Put(int id, T obj);
+        void Delete(int id);
+
+    }
+
+}

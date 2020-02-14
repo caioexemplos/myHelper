@@ -1,0 +1,105 @@
+﻿@model List<Faros.FrontEnd.Models.ArquivoDTO>
+
+@{ int fileCount = Model.Count();
+    double numberRows = @Math.Ceiling(fileCount / 4.0);
+}
+
+<div>total photos: @fileCount </div>
+<div>rows: @numberRows</div>
+
+<div id="myModal" class="modal">
+    <span class="close cursor" style="color:white" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+
+
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+
+        @{int j = 1;}
+        @foreach (var photo in Model)
+        {
+            <div class="mySlides">
+                <hr>
+                <div class="numbertext">@(j++) / @Model.Count()</div>
+                <img src="@Url.Content(photo.Path)" style="height:600px">
+                <hr>
+                @*@if (photo.User.Email == User.Identity.Name)
+                    {
+                        <form asp-controller="Profile" asp-action="DeletePhoto" method="post" asp-route-id="@photo.PhotoId">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-default" value="Delete" />
+                            </div>
+                        </form>
+                    }*@
+            </div>
+
+        }
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+
+
+
+        @{
+            int counterSecond = 1;
+            @for (int r = 1; r <= numberRows; r++)
+            {
+                <div class="row">
+                    @for (int k = 1; k <= 4; k++)
+                    {
+                        @if (counterSecond <= fileCount)
+                        {
+                            <div class="column">
+                                <img class="demo cursor" src="@Url.Content(@Model[(counterSecond-1)].Path)" alt="@Model[(counterSecond-1)].Nome" style="width:100%;  margin-top: 12px;" onclick="currentSlide(@(counterSecond++))">
+                            </div>
+                        }
+
+                    }
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('myModal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = "none";
+    }
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+</script>
+

@@ -1,0 +1,194 @@
+﻿@model Faros.Admin.Models.UploadFileModel<Faros.FrontEnd.Models.ArquivoDTO>
+
+@{
+    Layout = "_Layout";
+
+    ViewData["Title"] = "Upload Photo";
+}
+<center><h4 class="header-title m-t-0 m-b-30"><font color="#0000FF">Cadastro do animal</font></h4></center>
+
+<!--<form asp-action="UploadPhoto" asp-controller="AlbumEdit" method="post" enctype="multipart/form-data">
+    <div>
+        <label asp-for="UploadedFile">Upload photo</label><br />
+        <input type="file" asp-for="UploadedFile" /><input type="submit" value="Upload" class="btn-sm" /><br>
+    </div>
+    <div>
+        <label asp-for="Nome">Nome</label><br />
+    <input asp-for="Nome" />
+    </div>
+
+<div class="form-group">
+    <input type="submit" value="Upload" class="btn" />
+</div>
+</form>-->
+
+
+<hr>
+<div class="wrapper">
+    <div class="container">
+
+
+        <div class="card-box">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="example-input-small">Foto:</label>
+                    <img src="Admin/AlbumEdit/VerImagemNovo" class="img-fluid">
+                </div>
+                <div class="col-sm-8" style="margin-top:auto;width: 100px; height: 100px;">
+                    <!--USAR CONSTANTES-->
+                    <form method="post" enctype="multipart/form-data" asp-controller="AlbumEdit" asp-action="UploadPhoto">
+                            <input type="file" name="file" />
+                            <input type="submit" class="btn-xs float-right" />
+                        </form>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Logradouro</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Endereço</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Número</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Complemento</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Bairro</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Cidade</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="example-input-small">Estado</label>
+                            <input type="text" id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=" ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr>
+
+
+
+<div class="form-group text-right m-b-0">
+    <button class="btn btn-primary waves-effect waves-light" type="submit">
+        Gravar Cliente
+    </button>
+</div>
+
+<!--<script>
+    function clickIncremento(button) {
+        let data = this.getData(button);
+        data.Quantidade++;
+        this.postQuantidade(data);
+    }
+
+    function clickDecremento(button) {
+        let data = this.getData(button);
+        data.Quantidade--;
+        this.postQuantidade(data);
+    }
+
+    function updateQuantidade(input) {
+        let data = this.getData(input);
+        this.postQuantidade(data);
+    }
+
+    function getData(elemento) {
+        var linhaDoItem = $(elemento).parents('[item-id]');
+        var itemId = $(linhaDoItem).attr('item-id');
+        var novaQuantidade = $(linhaDoItem).find('input').val();
+
+        return {
+            Id: itemId,
+            Quantidade: novaQuantidade
+        };
+    }
+
+    function postQuantidade(data) {
+
+        let token = $('[name=__RequestVerificationToken]').val();
+
+        let headers = {};
+        headers['RequestVerificationToken'] = token;
+
+        $.ajax({
+            url: '/pedido/updatequantidade',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            headers: headers
+        }).done(function (response) {
+            let itemPedido = response.itemPedido;
+            let linhaDoItem = $('[item-id=' + itemPedido.id + ']')
+            linhaDoItem.find('input').val(itemPedido.quantidade);
+            linhaDoItem.find('[subtotal]').html((itemPedido.subtotal).duasCasas());
+            let carrinhoViewModel = response.carrinhoViewModel;
+            $('[numero-itens]').html('Total: ' + carrinhoViewModel.itens.length + ' itens');
+            $('[total]').html((carrinhoViewModel.total).duasCasas());
+
+            if (itemPedido.quantidade == 0) {
+                linhaDoItem.remove();
+            }
+        });
+    }
+}
+
+    var carrinho = new Carrinho();
+
+    Number.prototype.duasCasas = function () {
+        return this.toFixed(2).replace('.', ',');
+    }
+
+</script>
+    -->

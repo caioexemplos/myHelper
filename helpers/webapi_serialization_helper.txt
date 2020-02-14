@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Core.Repository.Serialization;
+
+namespace Core.Service.Serialization
+{
+    public static class SerializationConfig
+    {
+        public static JsonSerializerSettings GetDefaultJsonSerializerSetting()
+        {
+            JsonSerializerSettings serializerSettings = new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                ContractResolver = new NHibernateContractResolver()
+            };
+
+            return serializerSettings;
+        }
+
+
+    }
+
+
+ public class NHibernateContractResolver:DefaultContractResolver
+    {
+        protected override JsonContract CreateContract(Type objectType)
+        {
+            if(typeof(INHibernateProxy).IsAssignableFrom(objectType))
+                return base.CreateContract(objectType.BaseType);
+            else
+                return base.CreateContract(objectType);
+
+
+        }
+    }
+}

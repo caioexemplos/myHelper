@@ -1,0 +1,1 @@
+Diversos exemplos coletados da internet para aprendizagem

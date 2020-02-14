@@ -1,0 +1,138 @@
+﻿@model Faros.FrontEnd.Models.AnimalDTO
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Editar Animal</h2>
+
+<hr>
+@{
+    string publisherArea = Faros.Common.Constants.AssemblyConstants.publishActionUpload;
+
+}
+<div class="wrapper">
+    <div class="container">
+
+        @if (Model != null)
+        {
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="example-input-small">Foto:</label>
+                        @if (Model.FotoArquivo != null)
+                        {
+                            <img src="@Url.Content(Model.FotoArquivo.Path)" class="img-fluid">
+                        }
+                        else
+                        {
+                            <!--Debugger-->
+                            <img src="Admin/AnimalEdit/VerImagemNovo" class="img-fluid">
+                            <!--Publish-->
+                            <!--<img src="FarosFront/AnimalEdit/VerImagemNovo" class="img-fluid">-->
+                        }
+                    </div>
+                    <div class="col-sm-8" style="margin-top:auto;width: 100px; height: 100px;">
+                        <!--USAR CONSTANTES-->
+                        <form method="post" enctype="multipart/form-data" asp-controller="AnimalEdit" asp-action="UploadPhotoEdit" asp-route-posicao="@Model.FotoArquivo.Posicao" asp-route-idAnimal="@Model.Id">
+                            <input type="file" name="file" />
+                            <input type="submit" class="btn-xs float-right" />
+                        </form>
+
+                    </div>
+
+                </div>
+                <form asp-action="Update" asp-controller="AnimalEdit" method="post" asp-route-id="@Model.Id">
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label asp-for="RESA" class="control-label">RESA</label>
+                                    <input type="text" asp-for="RESA" class="form-control input-sm" placeholder="RESA" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label asp-for="Nome" class="control-label">Nome</label>
+                                    <input type="text" asp-for="Nome" class="form-control input-sm" placeholder="Nome" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label asp-for="Sexo" class="control-label"></label>
+                                    <select asp-for="Sexo.Id" class="form-control">
+                                        <option value="0">-- Selecione o Sexo --</option>
+                                        <option value="2">Macho</option>
+                                        <option value="1">Fêmea</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="Especie" class="control-label"></label>
+                                <select asp-for="Especie.Id" class="form-control">
+                                    <option value="0">-- Selecione o Sexo --</option>
+                                    <option value="1">Cachorro</option>
+                                    <option value="2">Gato</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label asp-for="Idade" class="control-label"></label>
+                                    <select asp-for="Idade.Id" class="form-control">
+                                        <option value="0">-- Selecione o Sexo --</option>
+                                        <option value="1">Filhote</option>
+                                        <option value="2">Adulto</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="example-input-small">Castração</label>
+                                    <input asp-for="Castracao" type="date" class="form-control datepicker">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="col-md-4">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="example-input-small">Caminho Foto</label>
+                                    <input type="text" asp-for="FotoArquivo.Path" class="form-control input-sm" placeholder="Path" />
+
+                                </div>
+                            </div>
+                        </div>-->
+
+                    </div>
+
+                    <div class="form-horizontal float-right">
+                        <div class="form-group">
+                            <input type="submit" value="Editar" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
+<hr>
+
+

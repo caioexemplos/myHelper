@@ -1,0 +1,23 @@
+@model AuthApp.ViewModels.UploadPhotoModel
+@{Layout = "_Layout";
+ViewData["Title"] = "Upload Photo";
+}
+<h3>Choose photo</h3>
+<form asp-action="UploadPhoto" asp-controller="Profile" method="post" enctype="multipart/form-data">
+        <div>
+            <label asp-for="uploadedFile">Upload photo</label><br />
+            <input type="file" asp-for="uploadedFile" /><br>
+        </div>
+        <div>
+            <label asp-for="Description">Description</label><br />
+            <input asp-for="Description" />
+        </div>
+		<br/>
+        <div class="form-group">
+            <input type="submit" value="Upload" class="btn" />
+        </div>
+</form>
+
+
+
+

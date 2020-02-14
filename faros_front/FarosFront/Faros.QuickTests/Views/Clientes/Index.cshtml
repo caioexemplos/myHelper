@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Faros.QuickTests.Models.Cliente>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <meta charset="utf-8" />
+    <link href="~/lib/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <link href="~/lib/jquery-ui-themes-1.12.1/jquery-ui.theme.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-ui-1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div id="divClientes">
+        @Html.Partial("List",Model);
+    </div>
+</body>
+</html>

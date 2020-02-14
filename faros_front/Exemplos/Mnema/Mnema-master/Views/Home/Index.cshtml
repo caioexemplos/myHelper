@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Mnema.Models.User>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    <h3>users</h3>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Password</td>
+            <td>Email</td>
+            <td></td>
+        </tr>
+        @foreach (var user in Model)
+            {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Password</td>
+                <td>@user.Email</td>
+                <td>@user.UserId</td>
+                @if(@user.Photos!=null){
+                    <td>@user.Photos.Count()</td>
+                }
+            </tr>
+        }
+    </table>
+</body>

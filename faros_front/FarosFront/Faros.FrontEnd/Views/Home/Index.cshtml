@@ -1,0 +1,102 @@
+﻿@model List<Faros.FrontEnd.Models.ArquivoDTO>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<main role="main">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+
+
+        <div class="carousel-inner">
+            @if (Model != null)
+            {
+                @foreach (var item in Model.OrderBy(x=>x.Posicao))
+                        {
+                            
+                            string classe=(item.Posicao == 0) ?  "carousel-item active" : "carousel-item";
+
+                <div class="@classe">
+
+                <img class="d-block w-100" src="@Url.Content(item.Path)" alt="Image Slide">
+
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Fotos da Faros</h5>
+                    <p>Aqui será a foto da faros</p>
+                </div>
+            </div>
+                }
+            }
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <br>
+
+    <div class="container marketing">
+        <span class="oi" data-glyph="icon-name" title="icon name" aria-hidden="true"></span>
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Conheça nossos animais</h2>
+                <p class="lead">Veja nosso álbum com o nome e a foto para adoção</p>
+                <p><a class="btn btn-secondary" href="" role="button">Saiba como! »</a></p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="" alt="300x300" style="width: 300px; height: 300px;" src="~/images/row_featured_1.jpg" data-holder-rendered="true">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Patrocine um amiguinho</h2>
+                <p class="lead">Patrocine um amiguinho durante 1 ano com coleiras anti-pulgas/carrapato/mosquito da leshimaniose,V8,vermifugação e castração.</p>
+                <p><a class="btn btn-secondary" href="" role="button">Saiba como! »</a></p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" src="~/images/row_featured_2.jpg" data-holder-rendered="true" style="width: 300px; height: 300px;">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Conheça a Faros D'Juda</h2>
+                <p class="lead">
+                    A Faros foi criada em XXXX  e continua atuando nos dias de hoje recuperando animais de rua doentes e feridos e colocando para adoção,dando a eles uma nova
+                    oportunidade de ser feliz!
+                </p>
+                <p><a class="btn btn-secondary" href="" role="button">Saiba como! »</a></p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" src="~/images/row_featured_3.jpg" data-holder-rendered="true" style="width: 300px; height: 300px;">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+
+
+</main>
+

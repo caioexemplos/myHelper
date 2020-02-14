@@ -1,0 +1,25 @@
+﻿@model Faros.FrontEnd.Models.AnimalDTO
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img src="@Url.Content(Model.FotoArquivo.Path)" class="img-fluid" width="500" height="500">
+        </div>
+
+
+        <div class="col-8">
+            <p><strong>@Html.DisplayNameFor(model => model.RESA):</strong>RESA @Html.DisplayFor(model => model.RESA) </p>
+            <p><strong>@Html.DisplayNameFor(model => model.Nome):</strong> @Html.DisplayFor(model => model.Nome) </p>
+            @if (Model.Castracao != null)
+            {
+                var castracao = Model.Castracao.Value.ToShortDateString();
+            <p><strong>@Html.DisplayNameFor(model => model.Castracao):</strong>@castracao</p>
+            }
+            <p><strong>@Html.DisplayNameFor(model => model.Especie):</strong> @Html.DisplayFor(model => model.Especie.Nome)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Sexo):</strong> @Html.DisplayFor(model => model.Sexo.Nome)</p>
+        </div>
+    </div>
+</div>
