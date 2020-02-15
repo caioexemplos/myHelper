@@ -1,0 +1,243 @@
+
+
+DECLARE @versao varchar(50) = '2.0.0'
+DECLARE @modulo varchar(50) = 'RM'
+
+/************************* 
+** Update Vers�o Sistema
+**************************/
+IF  NOT EXISTS (	
+	SELECT * FROM [SOME TABLE] 
+		WHERE VersaoBD = @versao
+		  AND Modulo = @modulo
+	)
+BEGIN
+
+	UPDATE [SOME TABLE] SET VersaoBD = @versao WHERE Modulo = @modulo;
+
+END
+ELSE
+BEGIN
+	DECLARE @erro varchar(400) = 'Banco de dados j� atualizado: VERS�O[' + @versao +'] | MODULO['+ @modulo +']';
+	RAISERROR(@erro,15,1);
+END
+GO
+
+
+-- =============================================
+-- 	ADICIONANDO COLUNA Descrição
+-- =============================================
+-- Nome: [NOME]
+-- Data: 24/07/2017
+-- Descrição:[Descrição]
+-- =============================================
+IF NOT EXISTS(
+	SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+	WHERE COLUMN_NAME = 'Descricao'
+	AND	TABLE_NAME = '[SOME_TABLE]')
+BEGIN
+	ALTER TABLE [SOME_TABLE] ADD Descricao VARCHAR(150) NULL;
+
+	PRINT '[EXECUTED] ALTER TABLE [SOME_TABLE] ADD Descricao'
+END
+	ELSE
+	BEGIN 
+	PRINT '[NOT EXECUTED] ALTER TABLE [SOME_TABLE] ADD Descricao'
+	END
+GO
+
+
+-- =============================================
+-- INSERT
+-- =============================================
+-- Nome: [NOME]
+-- Data: 24/07/2017
+-- Descrição:[Descrição]
+-- =============================================
+IF NOT EXISTS(SELECT 1 FROM [SOME_TABLE] WHERE NOME = '[SOME_NOME]')
+	BEGIN
+		INSERT INTO [SOME_TABLE]([nome_coluna],[nome_coluna], [nome_coluna],[nome_coluna], [nome_coluna], [nome_coluna]) 
+								VALUES ([dado], '[dado]', [dado], '[dado]', '[dado]', '[dado de data]2000-01-01')
+
+		PRINT '[EXECUTED] INSERT INTO [SOME_TABLE]([SOME_NOME])'	
+	END
+ELSE
+	BEGIN
+		PRINT '[NOT EXECUTED] INSERT INTO [SOME_TABLE]([SOME_NOME])'	
+	END
+GO
+
+
+-- ==================================================================================================
+-- 
+-- ==================================================================================================
+IF NOT EXISTS(SELECT * FROM SYS.tables WHERE name = '[SOME_TABLE]')
+BEGIN
+	CREATE TABLE [dbo].[[SOME_TABLE]](
+		Id int NOT NULL,
+		Nome varchar(50) NOT NULL,
+		CONSTRAINT PK_SomePk PRIMARY KEY (Id) 
+	)		
+	
+	INSERT INTO [SOME_TABLE] (Id, Nome) VALUES ( 1, '[SOME_VARCHAR]' ) ;
+	INSERT INTO [SOME_TABLE] (Id, Nome) VALUES ( 2, '[SOME_VARCHAR]' ) ;
+	INSERT INTO [SOME_TABLE] (Id, Nome) VALUES ( 3, '[SOME_VARCHAR]' ) ;	
+	INSERT INTO [SOME_TABLE] (Id, Nome) VALUES ( 4, '[SOME_VARCHAR]' ) ;	
+	INSERT INTO [SOME_TABLE] (Id, Nome) VALUES ( 5, '[SOME_VARCHAR]' ) ;	
+	INSERT INTO [SOME_TABLE] (Id, Nome) VALUES ( 6, '[SOME_VARCHAR]' ) ;	
+	
+	PRINT '[EXECUTED] CREATE TABLE [SOME_TABLE]'	
+END
+ELSE
+BEGIN
+	PRINT '[NOT EXECUTED] TABLE [SOME_TABLE] already exist'
+END
+
+
+-- ==================================================================================================
+-- UNIQUE BY OBJECT ID
+-- ==================================================================================================
+
+IF OBJECT_ID('unqNome', 'UQ') IS NULL
+BEGIN
+	ALTER TABLE [SOME_TABLE] ADD CONSTRAINT unqNome UNIQUE (Nome)
+
+	PRINT '[EXECUTED] Criação de UNIQUE CONSTRAINT na tabela [SOME_TABLE]';
+END
+GO
+
+IF OBJECT_ID('unqNomeOrigem', 'UQ') IS NULL
+BEGIN
+	ALTER TABLE [SOME_TABLE] ADD CONSTRAINT unqNomeOrigem UNIQUE (Nome, SistemaOrigem);
+
+	PRINT '[EXECUTED] Criação  de UNIQUE CONSTRAINT na tabela [SOME_TABLE]';
+END
+GO
+
+
+
+
+
+
+-- ==================================================================================================
+-- PROCURANDO COLUNAS
+-- ==================================================================================================
+
+IF EXISTS(SELECT 1 FROM SYSCOLUMNS WHERE NAME = '[COLUMN_NAME_DATE]' AND ID = OBJECT_ID('[SOME_TABLE]'))
+BEGIN
+	UPDATE [SOME_TABLE] SET [COLUMN_NAME_DATE] = '01/01/2000'
+	PRINT '[EXECUTED] UPDATE MA_CONSTRUTORCURVA SET [COLUMN_NAME_DATE] = 01/01/2000'
+END
+ELSE
+BEGIN
+	PRINT '[NOT EXECUTED] UPDATE [SOME_TABLE] SET [COLUMN_NAME_DATE] = 01/01/2000'
+END
+GO
+
+
+-- =============================================
+-- 			
+-- =============================================
+-- Nome: [NOME]
+-- Data: 24/07/2017
+-- Descrição:[Descrição]
+-- =============================================
+
+IF NOT EXISTS(SELECT*FROM INFORMATION_SCHEMA.COLUMNS 
+			WHERE TABLE_NAME='[SOME_TABLE]'
+			AND COLUMN_NAME='[COLUMN_NAME]')
+BEGIN 
+		ALTER TABLE [SOME_TABLE] ADD [COLUMN_NAME] INT;
+		
+
+	PRINT '[EXECUTED] ALTER TABLE [SOME_TABLE] ADD [COLUMN_NAME]'
+END
+ELSE
+BEGIN
+	PRINT '[NOT EXECUTED] [EXECUTED] ALTER TABLE [SOME_TABLE] ADD [COLUMN_NAME]'
+END
+GO	
+
+
+-- =============================================
+-- 			UPDATES
+-- =============================================
+-- Nome: [NOME]
+-- Data: 24/07/2017
+-- Descrição:[Descrição]
+-- =============================================
+
+IF (SELECT COLUMNPROPERTY(OBJECT_ID('[SOME_TABLE]', 'U'), '[COLUMN_NAME]', 'AllowsNull')) = 1
+BEGIN
+  UPDATE [SOME_TABLE] SET [COLUMN_NAME] = 35 WHERE [COLUMN_NAME] = (SELECT Id FROM [COLUMN_NAME] WHERE Nome like '[COLUMN_NAME]');
+UPDATE [SOME_TABLE] SET [COLUMN_NAME] = 36 WHERE [COLUMN_NAME] != (SELECT Id FROM [COLUMN_NAME] WHERE Nome like '[COLUMN_NAME]');
+
+
+  ALTER TABLE [SOME_TABLE] ALTER COLUMN [COLUMN_NAME] INT NOT NULL;
+
+	PRINT 'Info: [SOME_TABLE] alterado.';
+END
+ELSE 
+BEGIN 
+  PRINT 'Warning: Tabela [SOME_TABLE] já alterada.';
+END
+
+
+-- =============================================
+-- 			UPDATES
+-- =============================================
+-- Nome: [NOME]
+-- Data: 24/07/2017
+-- Descrição:[Descrição]
+-- =============================================
+BEGIN
+
+  SELECT @COUNTER = COUNT(*) FROM [SOME_TABLE] WHERE [COLUMN_NAME] = '[SOME_DATA]';
+  
+  IF @COUNTER = 0 BEGIN
+
+    EXECUTE sp_executesql N'insert into [SOME_TABLE] values (''[SOME_DATA]'')';
+    EXECUTE sp_executesql N'insert into DM_Mercadoria values (''[SOME_DATA]'', (select Id from [SOME_TABLE] where nome like  ''[SOME_DATA]''))';
+    EXECUTE sp_executesql N'insert into DM_Mercadoria values (''[SOME_DATA]'', (select Id from [SOME_TABLE] where nome like  ''[SOME_DATA]''))';
+
+    PRINT '[EXECUTED] ADICAO [SOME_TABLE] CCCCC';
+  END
+  ELSE BEGIN
+    PRINT '[NOT EXECUTED] ADICAO [SOME_TABLE] CCCCC';
+  END 
+END;
+
+
+-- =============================================
+-- RENAME TABLE
+-- =============================================
+
+IF EXISTS(SELECT * FROM sys.objects WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[[SOME_TABLE]]') AND type in (N'U')) 
+	BEGIN  
+		EXEC sp_rename '[SOME_TABLE_NAME] ','[OTHER_SOME_TABLE_NAME]';  
+		PRINT 'Tabela [SOME_TABLE_NAME] renomeada para [OTHER_SOME_TABLE_NAME] !!!'  
+	END  
+ELSE  
+	BEGIN  
+		PRINT 'Tabela [SOME_TABLE_NAME] n�o existe!!!'  
+	END  
+GO  
+
+
+
+-- =============================================
+-- DROP COLUMN
+-- =============================================
+IF  EXISTS (	
+	SELECT * FROM sys.columns 
+	WHERE object_id = OBJECT_ID(N'[SOME_TABLE]') AND Name = N'[COLUMN_NAME]'
+)
+BEGIN
+	ALTER TABLE [SOME_TABLE] DROP COLUMN [COLUMN_NAME];	
+	
+	PRINT '[EXECUTED] DROP COLUMN [COLUMN_NAME] - [SOME_TABLE]'	
+END
+ELSE
+BEGIN
+	PRINT '[NOT EXECUTED] DROP COLUMN [COLUMN_NAME] - [SOME_TABLE]'	
+END
